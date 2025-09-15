@@ -45,11 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<Employee> getAllEmployees(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return employeeRepository.findAll(pageable);
+        public Iterable<Employee> getAllEmployees(int page, int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            return employeeRepository.findAll(pageable).getContent(); // returns a List<Employee>
+        }
 
-    }
+
 
     @Override
     public Employee updateEmployee(Long id, Employee updated) {
