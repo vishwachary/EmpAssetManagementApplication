@@ -1,9 +1,16 @@
 package com.sample.employee.empassetmanagementapplication.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Employee {
 
@@ -18,24 +25,12 @@ public class Employee {
     private long salary;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<Address> address;
+    @Builder.Default // ensures non-null list when using builder
+    private List<Address> addresses = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee",cascade = CascadeType.ALL)
-    private List<Asset> assets;
+    @Builder.Default // ensures non-null list when using builder
+    private List<Asset> assets = new ArrayList<>();;
 
-    public List<Address> getAddress() {
-        return address;
-    }
 
-    public void setAddress(List<Address> address) {
-        this.address = address;
-    }
-
-    public List<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(List<Asset> assets) {
-        this.assets = assets;
-    }
 }
