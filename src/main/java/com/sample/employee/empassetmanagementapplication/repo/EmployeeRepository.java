@@ -7,8 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-
-    Employee getEmployeesById(Long id, Pageable pageable);
 }
 
 

@@ -24,13 +24,19 @@ public class Employee {
     private long phone;
     private long salary;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "employee", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "employee",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @Builder.Default // ensures non-null list when using builder
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,
+                mappedBy = "employee",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
     @Builder.Default // ensures non-null list when using builder
-    private List<Asset> assets = new ArrayList<>();;
+    private List<Asset> assets = new ArrayList<>();
 
 
 }

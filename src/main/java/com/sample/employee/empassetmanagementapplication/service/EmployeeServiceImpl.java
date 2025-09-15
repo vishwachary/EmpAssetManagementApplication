@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
 
-    EmployeeServiceImpl(EmployeeRepository InjectemployeeRepository)
+    public EmployeeServiceImpl(EmployeeRepository InjectemployeeRepository)
     {
         this.employeeRepository = InjectemployeeRepository;
 
@@ -25,15 +25,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee createEmployee(Employee employee) {
-        Employee empoBeInserted= employee.builder()
-                .name(employee.getName())
-                .salary(employee.getSalary())
-                .email(employee.getEmail())
-                .phone(employee.getPhone())
-                .addresses(employee.getAddresses())
-                .assets(employee.getAssets())
-                .build();
-       return employeeRepository.save(empoBeInserted);
+        // Fix back-references
+        if (employee.getAddresses() != null) {
+            employee.getAddresses().forEach(address -> address.setEmployee(employee));
+        }
+        if (employee.getAssets() != null) {
+            employee.getAssets().forEach(asset -> asset.setEmployee(employee));
+        }
+
+        return employeeRepository.save(employee); // cascade saves children
     }
 
     @Override
