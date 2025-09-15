@@ -1,15 +1,17 @@
 package com.sample.employee.empassetmanagementapplication.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Address extends Employee {
+public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String street;
     private String city;
@@ -20,5 +22,4 @@ public class Address extends Employee {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
 }
