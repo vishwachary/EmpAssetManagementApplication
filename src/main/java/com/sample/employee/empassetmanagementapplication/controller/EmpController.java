@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/employees")
@@ -44,4 +46,34 @@ public class EmpController {
 
         return ResponseEntity.ok(employeeDTOs);
     }
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getEmployees(
+            @RequestParam(required = false) Long afterId,
+            @RequestParam(defaultValue = "10") int limit) {
+
+        // Fetch employees after the given ID
+        List<Employee> employees = employeeService.getEmployeesAfterId(afterId, limit);
+
+        // Map to DTOs
+        List<EmployeeDTO> employeeDTOs = employees.stream()
+                .map(employeeMapper::toDto)
+                .toList();
+
+        // Prepare response with cursor info
+        Map<String, Object> response = new HashMap<>();
+        response.put("employees", employeeDTOs);
+
+        if (!employeeDTOs.isEmpty()) {
+            long lastId = employeeDTOs.get(employeeDTOs.size() - 1).getId();
+            response.put("nextAfterId", lastId);
+            response.put("hasMore", employeeDTOs.size() == limit);
+        } else {
+            response.put("nextAfterId", null);
+            response.put("hasMore", false);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
 }

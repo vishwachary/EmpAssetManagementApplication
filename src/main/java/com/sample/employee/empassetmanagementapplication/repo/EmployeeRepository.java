@@ -5,8 +5,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+import java.util.List;
 
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+    List<Employee> findTopNOrderByIdAsc(int limit);
+
+    List<Employee> findByIdGreaterThanOrderByIdAsc(Long id, Pageable pageable);
 }
 
 

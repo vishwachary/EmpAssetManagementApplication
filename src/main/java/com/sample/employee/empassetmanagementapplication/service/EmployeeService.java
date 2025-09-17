@@ -11,5 +11,7 @@ public interface EmployeeService {
     Iterable<Employee> getAllEmployees(int page, int size);
     Employee updateEmployee(Long id, Employee updated);
     void deleteEmployee(Long id);
+
+    public List<Employee> getEmployeesAfterId(Long afterId, int limit);
 }
 

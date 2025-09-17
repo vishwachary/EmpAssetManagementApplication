@@ -44,6 +44,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    public List<Employee> getEmployeesAfterId(Long afterId, int limit) {
+        if (afterId == null) {
+            // First page: start from the beginning
+            return employeeRepository.findTopNOrderByIdAsc(limit);
+        } else {
+            return employeeRepository.findByIdGreaterThanOrderByIdAsc(afterId, PageRequest.of(0, limit));
+        }
+    }
+
     @Override
         public Iterable<Employee> getAllEmployees(int page, int size) {
             Pageable pageable = PageRequest.of(page, size);
