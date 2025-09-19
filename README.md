@@ -29,7 +29,7 @@ http://localhost:8080/actuator/env
 <img width="744" height="164" alt="image" src="https://github.com/user-attachments/assets/bd03a4c7-903c-4248-89ef-63cdf6c8962f" />
 
 
-Sample JSON for PUT Request
+Sample JSON for POST Request
 
 {
     "name": "John Doe",
