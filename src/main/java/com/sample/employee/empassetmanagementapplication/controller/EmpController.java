@@ -34,7 +34,7 @@ public class EmpController {
         EmployeeDTO responseDTO = employeeMapper.toDto(savedEmployee);  // Entity -> DTO
         return ResponseEntity.ok(responseDTO);
     }
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<EmployeeDTO>> getAllEmployees(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

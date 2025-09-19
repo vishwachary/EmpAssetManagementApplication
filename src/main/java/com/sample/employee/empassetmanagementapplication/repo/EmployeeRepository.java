@@ -8,8 +8,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findTopNOrderByIdAsc(int limit);
 
+    // Get a list of employees ordered by ID ascending with a dynamic limit
+    List<Employee> findAllByOrderByIdAsc(Pageable pageable);
+
+    // Get employees with ID greater than a given value, ordered by ID ascending, with dynamic limit
     List<Employee> findByIdGreaterThanOrderByIdAsc(Long id, Pageable pageable);
 }
 
